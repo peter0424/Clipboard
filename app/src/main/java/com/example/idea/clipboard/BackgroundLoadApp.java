@@ -1,6 +1,7 @@
 package com.example.idea.clipboard;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -18,13 +20,15 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Created by Idea on 22/11/2016.
+ * Created by Idea on 22/11/2016 4:34 PM.
  */
 
 class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 {
 	private Activity mActivity;
 	private ProgressBar progressBar;
+	private CheckBox chk_selectAll;
+	private boolean allSelected = true;
 	private AsyncTaskCompleteListener<List<AppList>> mCallback;
 
 	BackgroundLoadApp(Activity activity, AsyncTaskCompleteListener<List<AppList>> callback)
@@ -39,7 +43,8 @@ class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 		super.onPreExecute();
 
 		progressBar = (ProgressBar) mActivity.findViewById(R.id.progressBar);
-		progressBar.setVisibility(View.VISIBLE);
+		//progressBar.setVisibility(View.VISIBLE);
+		chk_selectAll = (CheckBox) mActivity.findViewById(R.id.chk_selectAll);
 	}
 
 	@Override
@@ -50,14 +55,21 @@ class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 
 		PackageManager pm = mActivity.getPackageManager();
 		List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+		List<ApplicationInfo> filteredPackages = new ArrayList<>();
 		final List<AppList> appsList = new ArrayList<>();
+
+		for(ApplicationInfo appInfo: packages)      //filter the app, only get those apps which are runnable
+		{
+			if(pm.getLaunchIntentForPackage(appInfo.packageName) != null)
+				filteredPackages.add(appInfo);
+		}
 
 		String packName;
 		boolean isSelected;
-		for (int i = 0; i < packages.size(); ++i)
+		for (int i = 0; i < filteredPackages.size(); ++i)
 		{
 			isSelected = false;
-			packName = packages.get(i).packageName;
+			packName = filteredPackages.get(i).packageName;
 			for (int j = 0; j < selectedAppList.size(); ++j)
 			{
 				if (packName.equals(selectedAppList.get(j)))
@@ -65,6 +77,11 @@ class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 					isSelected = true;
 					break;
 				}
+			}
+
+			if(allSelected && !isSelected)
+			{
+				allSelected = false;
 			}
 
 			try
@@ -90,13 +107,16 @@ class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 	@Override
 	protected void onPostExecute(List<AppList> packagesName)
 	{
-		setLayout(packagesName);
+		setList(packagesName);
 		if (progressBar.getVisibility() != View.GONE)
 			progressBar.setVisibility(View.GONE);
+		if(chk_selectAll.getVisibility() != View.VISIBLE)
+			chk_selectAll.setVisibility(View.VISIBLE);
+		chk_selectAll.setChecked(allSelected);
 		mCallback.onTaskComplete(packagesName);
 	}
 
-	private void setLayout(final List<AppList> packagesName)
+	private void setList(final List<AppList> packagesName)
 	{
 		RecyclerView recyclerView = (RecyclerView) mActivity.findViewById(R.id.rvAllAppList);
 		recyclerView.setHasFixedSize(true);

@@ -40,14 +40,7 @@ public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteL
 
 		new BackgroundLoadApp(this, this).execute();
 
-		selectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-		{
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-			{
-					adapter.selectAll(isChecked);
-			}
-		});
+
 	}
 
 	@Override
@@ -133,6 +126,19 @@ public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteL
 		packages = result;
 		packagesCopy.addAll(packages);
 		adapter = (AppListRecyclerAdapter) recyclerView.getAdapter();
+		setListener();
+	}
+
+	public void setListener()
+	{
+		selectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				adapter.selectAll(isChecked);
+			}
+		});
 		adapter.setOnItemClickListener(new AppListRecyclerAdapter.OnItemClickListener()
 		{
 			@Override
@@ -142,6 +148,20 @@ public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteL
 				appsList.setSelected(!appsList.isSelected());
 				packages.get(position).setSelected(appsList.isSelected());
 				packagesCopy.get(position).setSelected(appsList.isSelected());
+			}
+		});
+		adapter.setOnSelectAllClickListener(new AppListRecyclerAdapter.OnSelectAllClickListener()
+		{
+			@Override
+			public void onSelectAllClick(boolean selected)
+			{
+				for(int i = 0; i < packages.size(); ++i)
+				{
+					packages.get(i).setSelected(selected);
+					packages.get(i).setSelected(selected);
+				}
+				packagesCopy = new ArrayList<>();
+				packagesCopy.addAll(packages);
 			}
 		});
 	}

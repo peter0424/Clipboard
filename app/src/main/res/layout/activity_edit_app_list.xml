@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"
-        android:indeterminate="true"
-        android:visibility="gone"/>
+        android:indeterminate="true"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -23,7 +22,8 @@
         android:layout_margin="5dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/select_all"/>
+        android:text="@string/select_all"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

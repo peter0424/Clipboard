@@ -61,10 +61,15 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 		}
 	}
 
-	public void selectAll(boolean isChecked)
+	void selectAll(boolean isChecked)
 	{
 		initial = false;
 		selectAll = isChecked;
+		//mOnItemClickListener.onItemClick(null, -1);
+		if (mOnSelectAllClickListener != null)
+		{
+			mOnSelectAllClickListener.onSelectAllClick(selectAll);
+		}
 		notifyDataSetChanged();
 	}
 
@@ -94,16 +99,26 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 		return appList.size();
 	}
 
-	private OnItemClickListener mListener;
+	private OnItemClickListener mOnItemClickListener;
+	private OnSelectAllClickListener mOnSelectAllClickListener;
 
 	void setOnItemClickListener(OnItemClickListener listener)
 	{
-		mListener = listener;
+		mOnItemClickListener = listener;
+	}
+	void setOnSelectAllClickListener(OnSelectAllClickListener listener)
+	{
+		mOnSelectAllClickListener = listener;
 	}
 
 	interface OnItemClickListener
 	{
 		void onItemClick(View itemView, int position);
+	}
+
+	interface OnSelectAllClickListener
+	{
+		void onSelectAllClick(boolean selected);
 	}
 
 	class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
@@ -126,10 +141,10 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 		public void onClick(View view)
 		{
 			int position = getAdapterPosition();
-			if (mListener != null && position != RecyclerView.NO_POSITION)
+			if (mOnItemClickListener != null && position != RecyclerView.NO_POSITION)
 			{
 				checkBox.setChecked(!checkBox.isChecked());
-				mListener.onItemClick(itemView, position);
+				mOnItemClickListener.onItemClick(itemView, position);
 			}
 		}
 	}
