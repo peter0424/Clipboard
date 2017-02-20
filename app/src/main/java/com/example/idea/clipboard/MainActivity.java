@@ -67,8 +67,7 @@ public class MainActivity extends AppCompatActivity
 		{
 			startService(new Intent(this, Clipboard.class));
 			btn.setText("Tap to stop");
-		}
-		else
+		} else
 		{
 			getBaseContext().stopService(new Intent(this, Clipboard.class));
 			btn.setText("Tap to run");

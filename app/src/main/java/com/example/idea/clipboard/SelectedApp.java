@@ -1,6 +1,7 @@
 package com.example.idea.clipboard;
 
 import android.graphics.drawable.Drawable;
+
 /**
  * Created by Idea on 13/2/2017.
  */

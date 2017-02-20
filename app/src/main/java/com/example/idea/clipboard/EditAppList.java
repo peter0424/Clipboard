@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteL
 {
 	@BindView(R.id.rvAllAppList)
 	RecyclerView recyclerView;
+	@BindView(R.id.chk_selectAll)
+	CheckBox selectAll;
 
 	AppListRecyclerAdapter adapter;
 	List<AppList> packages;
@@ -35,6 +39,15 @@ public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteL
 		ButterKnife.bind(this);
 
 		new BackgroundLoadApp(this, this).execute();
+
+		selectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+					adapter.selectAll(isChecked);
+			}
+		});
 	}
 
 	@Override
@@ -68,8 +81,7 @@ public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteL
 		if (text.isEmpty())
 		{
 			packages.addAll(packagesCopy);
-		}
-		else
+		} else
 		{
 			text = text.toLowerCase();
 			for (AppList item : packagesCopy)
@@ -120,7 +132,7 @@ public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteL
 	{
 		packages = result;
 		packagesCopy.addAll(packages);
-		adapter = (AppListRecyclerAdapter)recyclerView.getAdapter();
+		adapter = (AppListRecyclerAdapter) recyclerView.getAdapter();
 		adapter.setOnItemClickListener(new AppListRecyclerAdapter.OnItemClickListener()
 		{
 			@Override

@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+
 /**
  * Created by Idea on 22/11/2016.
  */
@@ -90,7 +91,7 @@ class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 	protected void onPostExecute(List<AppList> packagesName)
 	{
 		setLayout(packagesName);
-		if(progressBar.getVisibility() != View.GONE)
+		if (progressBar.getVisibility() != View.GONE)
 			progressBar.setVisibility(View.GONE);
 		mCallback.onTaskComplete(packagesName);
 	}

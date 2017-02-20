@@ -3,4 +3,5 @@
     <string name="search_hint">Search</string>
     <string name="save">Save</string>
     <string name="application_icon">Application Icon</string>
+    <string name="select_all">Select All</string>
 </resources>

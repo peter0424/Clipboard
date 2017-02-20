@@ -86,8 +86,7 @@ public class ShareTo extends AppCompatActivity
 				}
 			});
 			adapter.notifyDataSetChanged();
-		}
-		else
+		} else
 		{
 			lbl_noApp.setVisibility(View.VISIBLE);
 			btn_editApp.setVisibility(View.VISIBLE);

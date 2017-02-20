@@ -25,6 +25,8 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 	private List<AppList> appList;
 	private List<AppList> appListCopy = new ArrayList<>();
 	private Context mContext;
+	private boolean selectAll = false;
+	private boolean initial = true;
 
 	AppListRecyclerAdapter(Context context, List<AppList> records)
 	{
@@ -48,9 +50,22 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 		final PackageManager pm = mContext.getPackageManager();
 
 		viewHolder.checkBox.setClickable(false);
-		viewHolder.checkBox.setChecked(appList.isSelected());
 		viewHolder.iv_icon.setImageDrawable(appList.getAppIcon());
 		viewHolder.lbl_name.setText(appList.getAppLabel());
+
+		if(initial)
+			viewHolder.checkBox.setChecked(appList.isSelected());
+		else
+		{
+			viewHolder.checkBox.setChecked(selectAll);
+		}
+	}
+
+	public void selectAll(boolean isChecked)
+	{
+		initial = false;
+		selectAll = isChecked;
+		notifyDataSetChanged();
 	}
 
 	void filter(String text)
@@ -59,8 +74,7 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 		if (text.isEmpty())
 		{
 			appList.addAll(appListCopy);
-		}
-		else
+		} else
 		{
 			text = text.toLowerCase();
 			for (AppList item : appListCopy)
