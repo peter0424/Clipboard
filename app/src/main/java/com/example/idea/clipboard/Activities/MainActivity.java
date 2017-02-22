@@ -1,18 +1,17 @@
-package com.example.idea.clipboard;
+package com.example.idea.clipboard.Activities;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.lang.reflect.Method;
+import com.example.idea.clipboard.Clipboard;
+import com.example.idea.clipboard.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,31 +45,6 @@ public class MainActivity extends AppCompatActivity
 	}
 
 	@Override
-	public boolean onMenuOpened(int featureId, Menu menu)
-	{
-		if (featureId == Window.FEATURE_ACTION_BAR && menu != null)
-		{
-			if (menu.getClass().getSimpleName().equals("MenuBuilder"))
-			{
-				try
-				{
-					Method m = menu.getClass().getDeclaredMethod(
-							"setOptionalIconsVisible", Boolean.TYPE);
-					m.setAccessible(true);
-					m.invoke(menu, true);
-				} catch (NoSuchMethodException e)
-				{
-					Log.e("NoSuchMethodException", "onMenuOpened", e);
-				} catch (Exception e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
-		}
-		return super.onMenuOpened(featureId, menu);
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch (item.getItemId())
@@ -81,10 +55,14 @@ public class MainActivity extends AppCompatActivity
 				startActivity(editApp);
 				break;
 			}
+			case R.id.setting:
+			{
+				startActivity(new Intent(this, SettingsActivity.class));
+				break;
+			}
 			default:
 				break;
 		}
-
 		return true;
 	}
 

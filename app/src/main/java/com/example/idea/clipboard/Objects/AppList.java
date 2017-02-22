@@ -1,4 +1,4 @@
-package com.example.idea.clipboard;
+package com.example.idea.clipboard.Objects;
 
 import android.graphics.drawable.Drawable;
 

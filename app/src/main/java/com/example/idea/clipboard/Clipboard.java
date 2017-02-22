@@ -8,6 +8,8 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.idea.clipboard.Activities.ShareTo;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

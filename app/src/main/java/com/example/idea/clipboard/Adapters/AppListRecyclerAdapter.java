@@ -1,4 +1,4 @@
-package com.example.idea.clipboard;
+package com.example.idea.clipboard.Adapters;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -10,6 +10,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.idea.clipboard.Objects.AppList;
+import com.example.idea.clipboard.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by Idea on 13/2/2017.
  */
 
-class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter.ViewHolder>
+public class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter.ViewHolder>
 {
 	private List<AppList> appList;
 	private List<AppList> appListCopy = new ArrayList<>();
@@ -28,7 +31,7 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 	private boolean selectAll = false;
 	private boolean initial = true;
 
-	AppListRecyclerAdapter(Context context, List<AppList> records)
+	public AppListRecyclerAdapter(Context context, List<AppList> records)
 	{
 		appList = records;
 		mContext = context;
@@ -61,7 +64,7 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 		}
 	}
 
-	void selectAll(boolean isChecked)
+	public void selectAll(boolean isChecked)
 	{
 		initial = false;
 		selectAll = isChecked;
@@ -73,7 +76,7 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 		notifyDataSetChanged();
 	}
 
-	void filter(String text)
+	public void filter(String text)
 	{
 		appList.clear();
 		if (text.isEmpty())
@@ -102,26 +105,26 @@ class AppListRecyclerAdapter extends RecyclerView.Adapter<AppListRecyclerAdapter
 	private OnItemClickListener mOnItemClickListener;
 	private OnSelectAllClickListener mOnSelectAllClickListener;
 
-	void setOnItemClickListener(OnItemClickListener listener)
+	public void setOnItemClickListener(OnItemClickListener listener)
 	{
 		mOnItemClickListener = listener;
 	}
-	void setOnSelectAllClickListener(OnSelectAllClickListener listener)
+	public void setOnSelectAllClickListener(OnSelectAllClickListener listener)
 	{
 		mOnSelectAllClickListener = listener;
 	}
 
-	interface OnItemClickListener
+	public interface OnItemClickListener
 	{
 		void onItemClick(View itemView, int position);
 	}
 
-	interface OnSelectAllClickListener
+	public interface OnSelectAllClickListener
 	{
 		void onSelectAllClick(boolean selected);
 	}
 
-	class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 	{
 		@BindView(R.id.checkBox)
 		CheckBox checkBox;

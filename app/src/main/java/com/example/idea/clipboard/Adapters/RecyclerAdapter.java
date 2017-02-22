@@ -1,4 +1,4 @@
-package com.example.idea.clipboard;
+package com.example.idea.clipboard.Adapters;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.idea.clipboard.Objects.SelectedApp;
+import com.example.idea.clipboard.R;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,12 +21,12 @@ import butterknife.ButterKnife;
  * Created by Idea on 13/2/2017.
  */
 
-class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 {
 	private List<SelectedApp> mRecord;
 	private Context mContext;
 
-	RecyclerAdapter(Context context, List<SelectedApp> records)
+	public RecyclerAdapter(Context context, List<SelectedApp> records)
 	{
 		mRecord = records;
 		mContext = context;
@@ -56,17 +59,17 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 
 	private OnItemClickListener mListener;
 
-	void setOnItemClickListener(OnItemClickListener listener)
+	public void setOnItemClickListener(OnItemClickListener listener)
 	{
 		mListener = listener;
 	}
 
-	interface OnItemClickListener
+	public interface OnItemClickListener
 	{
 		void onItemClick(View itemView, int position);
 	}
 
-	class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 	{
 		@BindView(R.id.iv_icon)
 		ImageView iv_icon;

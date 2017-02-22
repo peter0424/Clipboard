@@ -1,4 +1,4 @@
-package com.example.idea.clipboard;
+package com.example.idea.clipboard.Activities;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -11,6 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.idea.clipboard.Objects.SelectedApp;
+import com.example.idea.clipboard.R;
+import com.example.idea.clipboard.Adapters.RecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

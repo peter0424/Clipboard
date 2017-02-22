@@ -1,4 +1,4 @@
-package com.example.idea.clipboard;
+package com.example.idea.clipboard.Activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +12,11 @@ import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.idea.clipboard.Objects.AppList;
+import com.example.idea.clipboard.Adapters.AppListRecyclerAdapter;
+import com.example.idea.clipboard.BackgroundLoadApp;
+import com.example.idea.clipboard.R;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +25,7 @@ import java.util.Set;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditAppList extends AppCompatActivity implements AsyncTaskCompleteListener<List<AppList>>
+public class EditAppList extends AppCompatActivity implements BackgroundLoadApp.AsyncTaskCompleteListener<List<AppList>>
 {
 	@BindView(R.id.rvAllAppList)
 	RecyclerView recyclerView;

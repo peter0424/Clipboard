@@ -1,7 +1,6 @@
 package com.example.idea.clipboard;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +12,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 
+import com.example.idea.clipboard.Adapters.AppListRecyclerAdapter;
+import com.example.idea.clipboard.Objects.AppList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,7 +25,7 @@ import java.util.List;
  * Created by Idea on 22/11/2016 4:34 PM.
  */
 
-class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
+public class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 {
 	private Activity mActivity;
 	private ProgressBar progressBar;
@@ -31,7 +33,7 @@ class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 	private boolean allSelected = true;
 	private AsyncTaskCompleteListener<List<AppList>> mCallback;
 
-	BackgroundLoadApp(Activity activity, AsyncTaskCompleteListener<List<AppList>> callback)
+	public BackgroundLoadApp(Activity activity, AsyncTaskCompleteListener<List<AppList>> callback)
 	{
 		mActivity = activity;
 		mCallback = callback;
@@ -132,9 +134,9 @@ class BackgroundLoadApp extends AsyncTask<Integer, Integer, List<AppList>>
 	{
 		return ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
 	}
-}
 
-interface AsyncTaskCompleteListener<T>
-{
-	void onTaskComplete(T result);
+	public interface AsyncTaskCompleteListener<T>
+	{
+		void onTaskComplete(T result);
+	}
 }
