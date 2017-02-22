@@ -2,19 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<item
-        android:id="@+id/action_refresh"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:icon="@drawable/setting"
-        android:title="Refresh"/>-->
-    <!--<item
-        android:id="@+id/edit_app_list"
-        android:title="Edit App List"
-        android:icon="@drawable/ic_edit_black_24dp"
-        app:showAsAction="never">
-    </item> -->
-
     <item
         android:id="@+id/empty"
         android:title="@string/more_menu"
